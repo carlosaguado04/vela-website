@@ -1,0 +1,24 @@
+---
+import { site } from "../site";
+---
+
+<header class="nav">
+  <div class="nav-bar">
+    <a class="brand" href="/">
+      <svg class="brand-mark" viewBox="0 0 32 32" width="24" height="24" aria-hidden="true">
+        <circle class="brand-ring" cx="16" cy="16" r="8.2" fill="none" stroke-width="2.3"></circle>
+        <path
+          class="brand-arc"
+          d="M23.4 10.2a8.2 8.2 0 0 1-1.4 11.8"
+          fill="none"
+          stroke-width="2.3"
+          stroke-linecap="round"></path>
+        <circle class="brand-dot" cx="16" cy="16" r="2.15"></circle>
+      </svg>
+      Vela
+    </a>
+    <nav class="nav-links" aria-label="Primary">
+      <a href={site.acidityUrl} rel="noopener noreferrer" target="_blank">Studio</a>
+    </nav>
+  </div>
+</header>
