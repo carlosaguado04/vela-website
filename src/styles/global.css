@@ -331,6 +331,22 @@ main,
 .hero-stage {
   margin-top: 32px;
   min-width: 0;
+  container-type: inline-size;
+  display: flex;
+  justify-content: center;
+}
+
+/* Desktop-pixel chrome, scaled as a unit. Height collapses with the scale. */
+.chrome-stage {
+  --chrome-w: 960px;
+  --chrome-h: 560px;
+  --chrome-scale: min(1, 100cqi / var(--chrome-w));
+  width: var(--chrome-w);
+  height: var(--chrome-h);
+  flex-shrink: 0;
+  transform: scale(var(--chrome-scale));
+  transform-origin: top center;
+  margin-bottom: calc(var(--chrome-h) * (var(--chrome-scale) - 1));
 }
 
 @media (min-width: 768px) {
@@ -352,7 +368,8 @@ main,
   width: 100%;
   max-width: 100%;
   min-width: 0;
-  height: min(560px, 70vh);
+  height: 100%;
+  margin: 0;
   overflow: hidden;
   border-radius: 22px;
   border: 1px solid rgb(255 255 255 / 0.14);
@@ -808,52 +825,6 @@ main,
     font-size: 24px;
     max-width: 11.5em;
     margin-inline: auto;
-  }
-
-  .chrome {
-    height: 380px;
-    border-radius: 16px;
-    font-size: 12px;
-  }
-
-  .sidebar {
-    width: 118px;
-    top: 8px;
-    left: 8px;
-    bottom: 8px;
-    border-radius: 14px;
-  }
-
-  .side-top {
-    padding-left: 10px;
-  }
-
-  .traffic i {
-    width: 10px;
-    height: 10px;
-  }
-
-  .addr-ph {
-    font-size: 11px;
-  }
-
-  .ntp {
-    left: 134px;
-    padding: 16px 12px;
-  }
-
-  .ntp-title {
-    font-size: 18px;
-  }
-
-  .ntp-hint {
-    font-size: 11px;
-    max-width: 22ch;
-  }
-
-  .dl-tray {
-    right: 10px;
-    bottom: 10px;
   }
 }
 
