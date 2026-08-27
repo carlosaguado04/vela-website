@@ -1,6 +1,6 @@
-# Vela
+# Orza
 
-Marketing site for [Vela](https://vela.acidity.lol), a Mac browser from [Acidity](https://acidity.lol). Sidebar, pins, downloads. Still cooking.
+Marketing site for [Orza](https://orza.acidity.lol), a Mac browser from [Acidity](https://acidity.lol). Sidebar, pins, downloads. Still cooking.
 
 Static Astro. One page. CSS motion — no video, no Lottie.
 

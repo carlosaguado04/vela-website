@@ -4,4 +4,5 @@ dist/
 .DS_Store
 
 .run-grok-vela-site.sh
+.run-grok-orza.sh
 reference-vela-window.png
