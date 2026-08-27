@@ -39,10 +39,10 @@
   --paper: #f4f4f2;
   --paper-dim: #9aa0aa;
   --paper-mute: #7c828c;
-  --vela-coral: #ff6b61;
-  --vela-lime: #d8ff47;
-  --vela-cyan: #33f2eb;
-  --vela-tint: var(--vela-coral);
+  --orza-coral: #ff6b61;
+  --orza-lime: #d8ff47;
+  --orza-cyan: #33f2eb;
+  --orza-tint: var(--orza-coral);
   --on-tint: #0c0d10;
   --chrome: #12141a;
   --chrome-raised: #1a1d24;
@@ -105,12 +105,12 @@ body {
   background:
     radial-gradient(
       ellipse 80% 55% at 12% -10%,
-      color-mix(in srgb, var(--vela-coral) 11%, transparent),
+      color-mix(in srgb, var(--orza-coral) 11%, transparent),
       transparent 52%
     ),
     radial-gradient(
       ellipse 70% 50% at 92% 8%,
-      color-mix(in srgb, var(--vela-cyan) 10%, transparent),
+      color-mix(in srgb, var(--orza-cyan) 10%, transparent),
       transparent 55%
     ),
     var(--ink);
@@ -146,7 +146,7 @@ a {
 }
 
 a:hover {
-  color: var(--vela-cyan);
+  color: var(--orza-cyan);
 }
 
 :focus {
@@ -154,12 +154,12 @@ a:hover {
 }
 
 :focus-visible {
-  outline: 2px solid var(--vela-cyan);
+  outline: 2px solid var(--orza-cyan);
   outline-offset: 3px;
 }
 
 ::selection {
-  background: var(--vela-coral);
+  background: var(--orza-coral);
   color: var(--on-tint);
 }
 
@@ -290,7 +290,7 @@ main,
 }
 
 .nav-links a:hover {
-  color: var(--vela-cyan);
+  color: var(--orza-cyan);
 }
 
 /* Sail wake — liquid lime / cyan / coral bands. Not page-rects. */
@@ -344,7 +344,7 @@ main,
   }
 }
 
-/* Vela window — always dark. No title bar. Lights live on the floating glass. */
+/* Orza window — always dark. No title bar. Lights live on the floating glass. */
 
 .chrome {
   position: relative;
@@ -359,12 +359,12 @@ main,
   background:
     radial-gradient(
       ellipse 70% 80% at 18% 42%,
-      color-mix(in srgb, var(--vela-cyan) 22%, transparent),
+      color-mix(in srgb, var(--orza-cyan) 22%, transparent),
       transparent 58%
     ),
     radial-gradient(
       ellipse 82% 88% at 58% 48%,
-      color-mix(in srgb, var(--vela-cyan) 16%, transparent),
+      color-mix(in srgb, var(--orza-cyan) 16%, transparent),
       transparent 72%
     ),
     radial-gradient(
@@ -391,12 +391,12 @@ main,
   background:
     radial-gradient(
       ellipse 70% 80% at 18% 42%,
-      color-mix(in srgb, var(--vela-cyan) 22%, transparent),
+      color-mix(in srgb, var(--orza-cyan) 22%, transparent),
       transparent 58%
     ),
     radial-gradient(
       ellipse 82% 88% at 58% 48%,
-      color-mix(in srgb, var(--vela-cyan) 16%, transparent),
+      color-mix(in srgb, var(--orza-cyan) 16%, transparent),
       transparent 72%
     ),
     radial-gradient(
@@ -599,7 +599,7 @@ main,
   width: 8px;
   height: 8px;
   flex-shrink: 0;
-  background: var(--vela-coral);
+  background: var(--orza-coral);
   border-radius: 50% 50% 50% 0;
   transform: rotate(-45deg);
 }
@@ -625,7 +625,7 @@ main,
   font-weight: 500;
   letter-spacing: 0.24em;
   text-transform: uppercase;
-  color: var(--vela-cyan);
+  color: var(--orza-cyan);
 }
 
 .ntp-title {
@@ -683,7 +683,7 @@ main,
   width: 14px;
   height: 18px;
   flex-shrink: 0;
-  border: 1.5px solid var(--vela-cyan);
+  border: 1.5px solid var(--orza-cyan);
   border-radius: 2px 5px 2px 2px;
   position: relative;
 }
@@ -696,8 +696,8 @@ main,
   width: 6px;
   height: 6px;
   background: #1a1d22;
-  border-left: 1.5px solid var(--vela-cyan);
-  border-bottom: 1.5px solid var(--vela-cyan);
+  border-left: 1.5px solid var(--orza-cyan);
+  border-bottom: 1.5px solid var(--orza-cyan);
 }
 
 .dl-meta {
@@ -726,7 +726,7 @@ main,
   height: 100%;
   width: 100%;
   border-radius: inherit;
-  background: var(--vela-cyan);
+  background: var(--orza-cyan);
   transform: scaleX(0);
   transform-origin: left center;
   animation: dl-fill 24s var(--ease) infinite;
@@ -877,23 +877,23 @@ main,
 }
 
 .beat-cmd {
-  border-top-color: var(--vela-cyan);
+  border-top-color: var(--orza-cyan);
 }
 
 .beat-pins {
-  border-top-color: var(--vela-coral);
+  border-top-color: var(--orza-coral);
 }
 
 .beat-downloads {
-  border-top-color: var(--vela-lime);
+  border-top-color: var(--orza-lime);
 }
 
 .beat-split {
-  border-top-color: var(--vela-cyan);
+  border-top-color: var(--orza-cyan);
 }
 
 .beat-mini {
-  border-top-color: var(--vela-coral);
+  border-top-color: var(--orza-coral);
 }
 
 .beat h2 {
@@ -1012,7 +1012,7 @@ main,
 }
 
 .footer a.house-acidity:hover {
-  color: var(--vela-cyan);
+  color: var(--orza-cyan);
 }
 
 @media (max-width: 480px) {

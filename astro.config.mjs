@@ -1,7 +1,7 @@
 import { defineConfig } from "astro/config";
 
 export default defineConfig({
-  site: "https://vela.acidity.lol",
+  site: "https://orza.acidity.lol",
   output: "static",
   trailingSlash: "never",
   compressHTML: true,
