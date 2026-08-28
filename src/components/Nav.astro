@@ -18,7 +18,7 @@ const path = Astro.url.pathname;
       Orza
     </a>
     <nav class="nav-links" aria-label="Primary">
-      <a href="/#features" data-features-open>Features</a>
+      <a href="/#features">Features</a>
       <a href="/#status">Updates</a>
       <a href="/contact" aria-current={path === "/contact" ? "page" : undefined}>Contact</a>
       <a href="/changelog" aria-current={path === "/changelog" ? "page" : undefined}>Changelog</a>
@@ -32,4 +32,5 @@ const path = Astro.url.pathname;
       </button>
     </nav>
   </div>
+  <div class="scroll-progress" aria-hidden="true"></div>
 </header>

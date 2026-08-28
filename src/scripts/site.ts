@@ -1,5 +1,4 @@
 const THEME_KEY = "orza-theme";
-const reduce = window.matchMedia("(prefers-reduced-motion: reduce)");
 
 const themeToggle = document.querySelector<HTMLButtonElement>("#theme-toggle");
 const themeColorMeta = document.querySelectorAll<HTMLMetaElement>('meta[name="theme-color"]');
@@ -37,7 +36,6 @@ const mascotLines = [
   "Don’t lick the mascot. We put that on the site for a reason.",
   "I’m the lime. Orza is still in the pan.",
   "Decorative until you click me. Now I’m tart.",
-  "Don’t ask for a TestFlight. I already said that.",
   "You clicked a citrus. Peak browsing.",
 ];
 
@@ -61,116 +59,12 @@ mascotBtn?.addEventListener("click", (event) => {
   }, 3200);
 });
 
-const panel = document.querySelector<HTMLElement>("[data-features-panel]");
-const sheet = document.querySelector<HTMLElement>("[data-features-sheet]");
-const openLinks = document.querySelectorAll<HTMLAnchorElement>("[data-features-open]");
-const closeBtn = document.querySelector<HTMLButtonElement>("[data-features-close]");
-const main = document.querySelector("main");
-
-function isHome() {
-  return location.pathname === "/" || location.pathname === "/index.html";
-}
-
-function featuresOpen() {
-  return panel?.classList.contains("is-open") ?? false;
-}
-
-function setExpanded(open: boolean) {
-  openLinks.forEach((link) => {
-    link.setAttribute("aria-expanded", open ? "true" : "false");
-    if (open) link.setAttribute("aria-current", "true");
-    else link.removeAttribute("aria-current");
-  });
-}
-
-function applyFeatures(open: boolean) {
-  if (!panel) return;
-  panel.classList.toggle("is-open", open);
-  panel.setAttribute("aria-hidden", open ? "false" : "true");
-  document.body.classList.toggle("features-open", open);
-  if (main) {
-    if (open) main.setAttribute("inert", "");
-    else main.removeAttribute("inert");
-  }
-  setExpanded(open);
-  if (open) {
-    if (location.hash !== "#features") {
-      history.pushState({ features: true }, "", "#features");
-    }
-    closeBtn?.focus();
-  } else if (location.hash === "#features") {
-    history.replaceState(null, "", location.pathname + location.search);
-  }
-}
-
-function transition(update: () => void) {
-  const doc = document as Document & {
-    startViewTransition?: (cb: () => void) => { finished: Promise<void> };
-  };
-  if (!reduce.matches && typeof doc.startViewTransition === "function") {
-    doc.startViewTransition(update);
-    return;
-  }
-  update();
-}
-
-function openFeatures() {
-  if (!panel || featuresOpen()) return;
-  transition(() => applyFeatures(true));
-}
-
-function closeFeatures() {
-  if (!panel || !featuresOpen()) return;
-  transition(() => applyFeatures(false));
-}
-
-function toggleFeatures() {
-  if (featuresOpen()) closeFeatures();
-  else openFeatures();
-}
-
-function syncFromLocation() {
-  if (!panel) return;
-  const want = location.hash === "#features";
-  if (want === featuresOpen()) {
-    setExpanded(want);
-    return;
-  }
-  applyFeatures(want);
-}
-
-openLinks.forEach((link) => {
-  link.setAttribute("aria-expanded", "false");
-  link.setAttribute("aria-controls", "features");
-  link.addEventListener("click", (event) => {
-    if (!panel || !isHome()) return;
-    event.preventDefault();
-    toggleFeatures();
-  });
-});
-
-closeBtn?.addEventListener("click", () => closeFeatures());
-
-panel?.addEventListener("click", (event) => {
-  if (event.target === panel) closeFeatures();
-});
-
-sheet?.addEventListener("click", (event) => event.stopPropagation());
-
-window.addEventListener("keydown", (event) => {
-  if (event.key === "Escape" && featuresOpen()) {
-    event.preventDefault();
-    closeFeatures();
-  }
-});
-
-window.addEventListener("popstate", syncFromLocation);
-window.addEventListener("hashchange", syncFromLocation);
-
-if (panel && location.hash === "#features") {
-  panel.classList.add("is-open");
-  panel.setAttribute("aria-hidden", "false");
-  document.body.classList.add("features-open");
-  if (main) main.setAttribute("inert", "");
-  setExpanded(true);
-}
+const progress = document.querySelector<HTMLElement>(".scroll-progress");
+const updateProgress = () => {
+  if (!progress) return;
+  const max = document.documentElement.scrollHeight - window.innerHeight;
+  progress.style.transform = `scaleX(${max > 0 ? Math.min(1, window.scrollY / max) : 0})`;
+};
+updateProgress();
+window.addEventListener("scroll", updateProgress, { passive: true });
+window.addEventListener("resize", updateProgress);

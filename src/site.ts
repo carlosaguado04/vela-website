@@ -4,6 +4,7 @@ export const site = {
   title: "Orza — a Mac browser. Free. Built with the people who use it.",
   description: "A Mac browser. Free. Built with the people who use it.",
   url: "https://orza.acidity.lol",
+  email: "hello@acidity.lol",
   acidityUrl: "https://acidity.lol",
   acidityStudioUrl: "https://acidity.lol#studio",
   miseUrl: "https://usemise.dev",
