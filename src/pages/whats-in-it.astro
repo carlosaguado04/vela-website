@@ -1,0 +1,33 @@
+---
+import Base from "../layouts/Base.astro";
+import { site } from "../site";
+---
+
+<Base
+  title={`What’s in it — ${site.name}`}
+  description="Free. Apple Silicon Mac, macOS 26+, Safari’s engine."
+>
+  <article class="inventory wrap">
+    <header class="inventory-head">
+      <h1>What’s in it.</h1>
+      <p>Free.</p>
+    </header>
+
+    <div class="inventory-grid">
+      <section class="beat beat-platform">
+        <h2>Platform</h2>
+        <p>Apple Silicon Mac, macOS 26+, Safari’s engine.</p>
+      </section>
+      <section class="beat beat-core">
+        <h2>Core</h2>
+        <p>⌘L when you mean it. Pins that return home (up to 12). Split View with a picker. Downloads through a real save dialog. Mini-player, then PiP when you leave.</p>
+      </section>
+      <section class="beat beat-also">
+        <h2>Also in the build</h2>
+        <p>Spaces (separate cookies). Idle tabs unload instead of sitting hot. Reader mode. Ads and trackers via native rules, not an extension. Phishing and malware via OpenPhish and URLhaus. HTTPS-only. Per-site permissions. Keyboard-first.</p>
+      </section>
+    </div>
+
+    <p class="inventory-mise">Mise can orza://open and orza://split.</p>
+  </article>
+</Base>

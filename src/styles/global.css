@@ -200,7 +200,7 @@ main,
   z-index: 1;
 }
 
-/* Nav — Satoshi wordmark. Sparse: Studio. Sticky, one row, above the field. */
+/* Nav — Satoshi wordmark. Sparse: What’s in it, Studio. Sticky, one row, above the field. */
 
 .nav {
   position: sticky;
@@ -863,6 +863,62 @@ main,
 
 .missing p {
   margin-top: 12px;
+}
+
+/* Inventory — three beats, not a card dump. */
+
+.inventory {
+  padding: 96px 0 120px;
+}
+
+.inventory-head h1 {
+  font-size: clamp(28px, 4vw, 40px);
+  letter-spacing: -0.03em;
+}
+
+.inventory-head p {
+  margin-top: 12px;
+  font-size: 17px;
+  color: var(--paper-dim);
+}
+
+.inventory-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 28px;
+  margin-top: 88px;
+  min-width: 0;
+}
+
+.beat-platform {
+  border-top-color: var(--orza-cyan);
+}
+
+.beat-core {
+  border-top-color: var(--orza-coral);
+}
+
+.beat-also {
+  border-top-color: var(--orza-lime);
+}
+
+.inventory-mise {
+  margin-top: 80px;
+  font-size: 17px;
+  color: var(--paper-dim);
+}
+
+@media (min-width: 768px) {
+  .inventory-grid {
+    margin-top: 112px;
+    gap: 32px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .inventory-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
 }
 
 /* Footer — Anurati on Acidity only. nowrap. Same lock as usemise.dev. */
