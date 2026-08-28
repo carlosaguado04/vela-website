@@ -165,7 +165,7 @@ button {
   position: absolute;
   left: 16px;
   top: 8px;
-  z-index: 40;
+  z-index: 110;
   padding: 8px 14px;
   background: var(--ink-raised);
   color: var(--paper);
@@ -201,14 +201,17 @@ main,
 main {
   flex: 1 0 auto;
   width: 100%;
+  padding-top: var(--nav-h);
 }
 
-/* Nav — 64px, sticky, blur. Type matches Mise .nav-links. */
+/* Nav — 64px, fixed, blur. Type matches Mise .nav-links. */
 
 .nav {
-  position: sticky;
+  position: fixed;
   top: 0;
-  z-index: 50;
+  left: 0;
+  right: 0;
+  z-index: 100;
   isolation: isolate;
   width: 100%;
   max-width: 100%;
