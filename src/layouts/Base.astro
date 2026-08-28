@@ -22,7 +22,7 @@ const canonical =
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang="en" data-theme="dark">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -30,7 +30,7 @@ const canonical =
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
     <meta name="theme-color" content="#0c0d10" />
-    <meta name="color-scheme" content="dark" />
+    <meta name="color-scheme" content="dark light" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content={site.name} />
@@ -43,6 +43,16 @@ const canonical =
     {jsonLd && (
       <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
     )}
+    <script is:inline>
+      (function () {
+        try {
+          var stored = localStorage.getItem("orza-theme");
+          var theme = stored === "light" || stored === "dark" ? stored : "dark";
+          document.documentElement.setAttribute("data-theme", theme);
+          document.documentElement.style.colorScheme = theme;
+        } catch (e) {}
+      })();
+    </script>
   </head>
   <body>
     <a class="skip" href="#content">Skip to content</a>
@@ -51,6 +61,8 @@ const canonical =
     <main id="content">
       <slot />
     </main>
+    <slot name="overlay" />
     <Footer />
+    <script src="../scripts/site.ts"></script>
   </body>
 </html>

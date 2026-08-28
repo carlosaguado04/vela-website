@@ -1,0 +1,67 @@
+---
+import { features } from "../site";
+---
+
+<div
+  class="features-panel"
+  id="features"
+  data-features-panel
+  role="dialog"
+  aria-modal="true"
+  aria-labelledby="features-title"
+  aria-hidden="true"
+>
+  <div class="features-sheet" data-features-sheet>
+    <header class="features-head">
+      <h2 id="features-title">Features</h2>
+      <button type="button" class="features-close" data-features-close>Close</button>
+    </header>
+
+    <ol class="index">
+      {
+        features.map((feature) => {
+          const tipId = `feature-tip-${feature.n}`;
+          const icon = "icon" in feature ? feature.icon : undefined;
+          const row = (
+            <>
+              <span class="index-n" aria-hidden="true">{feature.n}</span>
+              <span class="index-t">
+                {icon && (
+                  <img
+                    class="index-icon"
+                    src={icon}
+                    width="18"
+                    height="18"
+                    alt=""
+                    decoding="async"
+                  />
+                )}
+                {feature.title}
+              </span>
+              <span class="index-tip" id={tipId} role="tooltip">{feature.tip}</span>
+            </>
+          );
+
+          return (
+            <li>
+              {"href" in feature ? (
+                <a
+                  href={feature.href}
+                  rel="noopener noreferrer"
+                  target="_blank"
+                  aria-describedby={tipId}
+                >
+                  {row}
+                </a>
+              ) : (
+                <div class="index-row" tabindex="0" aria-describedby={tipId}>
+                  {row}
+                </div>
+              )}
+            </li>
+          );
+        })
+      }
+    </ol>
+  </div>
+</div>

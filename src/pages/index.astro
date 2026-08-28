@@ -1,6 +1,7 @@
 ---
 import Base from "../layouts/Base.astro";
 import Chrome from "../components/Chrome.astro";
+import FeaturesPanel from "../components/FeaturesPanel.astro";
 import { jsonLd } from "../site";
 ---
 
@@ -27,10 +28,12 @@ import { jsonLd } from "../site";
     </div>
   </section>
 
-  <section class="closer" aria-label="Status">
+  <section class="closer" id="status" aria-label="Status">
     <div class="wrap">
       <h2>Still cooking.</h2>
       <p>Don’t ask for a TestFlight yet.</p>
     </div>
   </section>
+
+  <FeaturesPanel slot="overlay" />
 </Base>

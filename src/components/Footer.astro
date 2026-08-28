@@ -3,7 +3,7 @@ import { site } from "../site";
 ---
 
 <footer class="footer">
-  <div class="wrap">
+  <div class="wrap footer-end">
     <p class="house-line">
       A product of <a
         class="house-acidity"
@@ -11,5 +11,16 @@ import { site } from "../site";
         rel="noopener noreferrer"
         target="_blank">Acidity</a>
     </p>
+    <div class="footer-mascot-wrap">
+      <button
+        type="button"
+        class="footer-mascot"
+        aria-label="Talk to the mascot"
+        data-mascot
+      >
+        <img src="/mascot.png" width="36" height="32" alt="" />
+      </button>
+      <div class="mascot-bubble" data-mascot-bubble hidden role="status" aria-live="polite"></div>
+    </div>
   </div>
 </footer>

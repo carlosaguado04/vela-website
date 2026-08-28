@@ -1,0 +1,21 @@
+---
+import Base from "../layouts/Base.astro";
+import { site } from "../site";
+---
+
+<Base
+  title={`Contact — ${site.name}`}
+  description="Orza is a product of Acidity. The studio is at acidity.lol."
+>
+  <article class="page wrap">
+    <h1>Contact</h1>
+    <p class="lede">
+      Orza is a product of Acidity. There isn’t a separate inbox.
+    </p>
+    <p>
+      <a href={site.acidityUrl} rel="noopener noreferrer" target="_blank">Acidity</a>
+      /
+      <a href={site.acidityStudioUrl} rel="noopener noreferrer" target="_blank">Studio</a>
+    </p>
+  </article>
+</Base>

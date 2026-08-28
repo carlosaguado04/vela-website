@@ -1,73 +1,20 @@
 ---
-import Base from "../layouts/Base.astro";
 import { site } from "../site";
 
-const title = "What’s in it";
-const lead = "Apple Silicon, macOS 26+, free.";
-
-const features = [
-  { n: "01", title: "Pins" },
-  { n: "02", title: "Split View" },
-  { n: "03", title: "Mini-player" },
-  { n: "04", title: "Spaces" },
-  { n: "05", title: "Idle tabs" },
-  { n: "06", title: "Reader" },
-  { n: "07", title: "Ads & trackers" },
-  { n: "08", title: "Phishing & malware" },
-  { n: "09", title: "HTTPS-only" },
-  {
-    n: "10",
-    title: "Mise",
-    href: "https://usemise.dev",
-    icon: "/favicons/mise.png",
-  },
-] as const;
+const dest = "/#features";
 ---
 
-<Base title={`${title} — ${site.name}`} description={lead}>
-  <article class="inventory wrap">
-    <header class="inventory-head">
-      <h1>{title}</h1>
-      <p>{lead}</p>
-    </header>
-
-    <ol class="index">
-      {
-        features.map((feature) => {
-          const row = (
-            <>
-              <span class="index-n" aria-hidden="true">
-                {feature.n}
-              </span>
-              <span class="index-t">
-                {"icon" in feature && (
-                  <img
-                    class="index-icon"
-                    src={feature.icon}
-                    width="18"
-                    height="18"
-                    alt=""
-                    decoding="async"
-                  />
-                )}
-                {feature.title}
-              </span>
-            </>
-          );
-
-          return (
-            <li>
-              {"href" in feature ? (
-                <a href={feature.href} rel="noopener noreferrer" target="_blank">
-                  {row}
-                </a>
-              ) : (
-                <div class="index-row">{row}</div>
-              )}
-            </li>
-          );
-        })
-      }
-    </ol>
-  </article>
-</Base>
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Features — {site.name}</title>
+    <meta http-equiv="refresh" content={`0;url=${dest}`} />
+    <link rel="canonical" href={`${site.url}/#features`} />
+    <script is:inline>location.replace("/#features");</script>
+  </head>
+  <body>
+    <p><a href={dest}>Features</a></p>
+  </body>
+</html>
