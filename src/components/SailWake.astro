@@ -1,284 +1,88 @@
 ---
 ---
 
-<div class="sail-wake" aria-hidden="true">
-  <canvas></canvas>
-</div>
+<div class="sail-wake" aria-hidden="true"></div>
 
 <script>
   const root = document.querySelector(".sail-wake");
-  const canvas = root?.querySelector("canvas");
   const motion = window.matchMedia("(prefers-reduced-motion: reduce)");
+  const LERP = 0.014;
 
-  const CORAL = "#FF6B61";
-  const LIME = "#D8FF47";
-  const CYAN = "#33F2EB";
-
-  type Pt = { x: number; y: number };
-  type Band = {
-    color: string;
-    half: number;
-    alpha: number;
-    lane: number;
-    phase: number;
-    speed: number;
-    lean: number;
-    pts: Pt[];
-    n: number;
-  };
-  type Wake = { x: number; y: number; life: number };
-
-  let ctx: CanvasRenderingContext2D | null = null;
-  let width = 0;
-  let height = 0;
-  let dpr = 1;
+  let x = 0;
+  let y = 0;
+  let tx = 0;
+  let ty = 0;
   let raf = 0;
-  let time = 0;
-  let last = 0;
-  const bands: Band[] = [];
-  const wakes: Wake[] = [];
-  const pointer = { x: 0, y: 0, tx: 0, ty: 0, active: 0 };
-  let hovering = false;
+  let following = false;
 
-  function hexAlpha(hex: string, a: number) {
-    const n = Math.round(Math.max(0, Math.min(1, a)) * 255);
-    return hex + n.toString(16).padStart(2, "0");
-  }
-
-  function resize() {
-    if (!(canvas instanceof HTMLCanvasElement)) return;
-    const nextW = window.innerWidth;
-    const nextH = window.innerHeight;
-    const nextDpr = Math.min(window.devicePixelRatio || 1, 2);
-    if (nextW === width && nextH === height && nextDpr === dpr && canvas.width) return;
-    width = nextW;
-    height = nextH;
-    dpr = nextDpr;
-    canvas.width = Math.round(width * dpr);
-    canvas.height = Math.round(height * dpr);
-    canvas.style.width = `${width}px`;
-    canvas.style.height = `${height}px`;
-    ctx = canvas.getContext("2d", { alpha: true });
-    if (ctx) ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-    layoutBands();
-  }
-
-  function layoutBands() {
-    const specs = [
-      { color: CYAN, half: 72, alpha: 0.09, lane: 0.14, phase: 0.6, speed: 0.26, lean: 0.1, n: 36 },
-      { color: CORAL, half: 58, alpha: 0.07, lane: 0.44, phase: 2.2, speed: 0.2, lean: 0.08, n: 34 },
-      { color: LIME, half: 50, alpha: 0.055, lane: 0.74, phase: 4.1, speed: 0.22, lean: 0.07, n: 32 },
-    ];
-    bands.length = 0;
-    for (const spec of specs) {
-      const pts: Pt[] = [];
-      for (let i = 0; i < spec.n; i++) pts.push({ x: 0, y: 0 });
-      bands.push({ ...spec, pts });
-    }
-    settle(0, true);
-  }
-
-  function restPoint(band: Band, i: number, t: number) {
-    const u = i / Math.max(band.n - 1, 1);
-    const drift = Math.sin(t * 0.0001 * band.speed + band.phase) * width * 0.035;
-    const travel = Math.sin(u * Math.PI * 1.4 + t * 0.00028 * band.speed + band.phase) * 28;
-    const billow = Math.sin(u * Math.PI * 0.8 + t * 0.00016 + band.phase * 0.6) * 18;
-    const sway = Math.sin(t * 0.0001 + band.phase) * 20;
-    const x =
-      (band.lane + u * band.lean - 0.08) * width + drift + travel + sway;
-    const y = (u * 1.28 - 0.14) * height + billow;
-    return { x, y };
-  }
-
-  function addInfluence(ix: number, iy: number, wx: number, wy: number, strength: number) {
-    const dx = ix - wx;
-    const dy = iy - wy;
-    const d = Math.hypot(dx, dy);
-    const radius = Math.max(140, Math.min(width, height) * 0.16);
-    if (d < 0.001 || d >= radius || strength <= 0) return { x: 0, y: 0 };
-    const n = 1 - d / radius;
-    const fall = n * n * strength;
-    const inv = 1 / d;
-    const part = 42 * fall;
-    const shear = 28 * fall;
+  function rest() {
     return {
-      x: dx * inv * part + -dy * inv * shear,
-      y: dy * inv * part + dx * inv * shear,
+      x: window.innerWidth * 0.42,
+      y: window.innerHeight * 0.28,
     };
   }
 
-  function displace(x: number, y: number) {
-    let px = 0;
-    let py = 0;
-    if (pointer.active > 0.02) {
-      const a = addInfluence(x, y, pointer.x, pointer.y, pointer.active);
-      px += a.x;
-      py += a.y;
-    }
-    for (const w of wakes) {
-      const a = addInfluence(x, y, w.x, w.y, w.life * 0.35);
-      px += a.x;
-      py += a.y;
-    }
-    return { x: px, y: py };
+  function apply() {
+    if (!(root instanceof HTMLElement)) return;
+    root.style.setProperty("--glow-x", `${x}px`);
+    root.style.setProperty("--glow-y", `${y}px`);
   }
 
-  function settle(t: number, snap: boolean) {
-    for (const band of bands) {
-      for (let i = 0; i < band.n; i++) {
-        const rest = restPoint(band, i, t);
-        const d = snap ? { x: 0, y: 0 } : displace(rest.x, rest.y);
-        const tx = rest.x + d.x;
-        const ty = rest.y + d.y;
-        const p = band.pts[i];
-        if (snap) {
-          p.x = tx;
-          p.y = ty;
-        } else {
-          p.x += (tx - p.x) * 0.06;
-          p.y += (ty - p.y) * 0.06;
-        }
-      }
+  function tick() {
+    x += (tx - x) * LERP;
+    y += (ty - y) * LERP;
+    apply();
+    if (Math.hypot(tx - x, ty - y) > 0.4) {
+      raf = requestAnimationFrame(tick);
+    } else {
+      x = tx;
+      y = ty;
+      apply();
+      raf = 0;
     }
   }
 
-  function strokeSmooth(pts: Pt[]) {
-    if (!ctx || pts.length < 2) return;
-    ctx.beginPath();
-    ctx.moveTo(pts[0].x, pts[0].y);
-    for (let i = 1; i < pts.length - 1; i++) {
-      const mx = (pts[i].x + pts[i + 1].x) * 0.5;
-      const my = (pts[i].y + pts[i + 1].y) * 0.5;
-      ctx.quadraticCurveTo(pts[i].x, pts[i].y, mx, my);
-    }
-    const lastPt = pts[pts.length - 1];
-    ctx.lineTo(lastPt.x, lastPt.y);
-  }
-
-  function drawRibbon(band: Band, t: number) {
-    if (!ctx) return;
-    const pts = band.pts;
-    const left: Pt[] = [];
-    const right: Pt[] = [];
-    for (let i = 0; i < pts.length; i++) {
-      const prev = pts[i - 1] || pts[i];
-      const next = pts[i + 1] || pts[i];
-      let tx = next.x - prev.x;
-      let ty = next.y - prev.y;
-      const len = Math.hypot(tx, ty) || 1;
-      tx /= len;
-      ty /= len;
-      const u = i / Math.max(band.n - 1, 1);
-      const pulse = 0.94 + 0.06 * Math.sin(u * 2.4 + t * 0.00028 + band.phase);
-      const w = band.half * pulse;
-      left.push({ x: pts[i].x - ty * w, y: pts[i].y + tx * w });
-      right.push({ x: pts[i].x + ty * w, y: pts[i].y - tx * w });
-    }
-    ctx.beginPath();
-    ctx.moveTo(left[0].x, left[0].y);
-    for (let i = 1; i < left.length - 1; i++) {
-      const mx = (left[i].x + left[i + 1].x) * 0.5;
-      const my = (left[i].y + left[i + 1].y) * 0.5;
-      ctx.quadraticCurveTo(left[i].x, left[i].y, mx, my);
-    }
-    ctx.lineTo(left[left.length - 1].x, left[left.length - 1].y);
-    for (let i = right.length - 1; i > 0; i--) {
-      const prev = right[i];
-      const next = right[i - 1];
-      const mx = (prev.x + next.x) * 0.5;
-      const my = (prev.y + next.y) * 0.5;
-      ctx.quadraticCurveTo(prev.x, prev.y, mx, my);
-    }
-    ctx.closePath();
-    ctx.fillStyle = hexAlpha(band.color, band.alpha);
-    ctx.fill();
-
-    ctx.lineCap = "round";
-    ctx.lineJoin = "round";
-    strokeSmooth(pts);
-    ctx.strokeStyle = hexAlpha(band.color, band.alpha * 1.1);
-    ctx.lineWidth = band.half * 0.28;
-    ctx.stroke();
-    strokeSmooth(pts);
-    ctx.strokeStyle = hexAlpha(band.color, Math.min(0.22, band.alpha * 1.6));
-    ctx.lineWidth = Math.max(6, band.half * 0.1);
-    ctx.stroke();
-  }
-
-  function draw(t: number) {
-    if (!ctx) return;
-    ctx.clearRect(0, 0, width, height);
-    ctx.globalCompositeOperation = "lighter";
-    for (const band of bands) drawRibbon(band, t);
-    ctx.globalCompositeOperation = "source-over";
-  }
-
-  function tick(now: number) {
-    const dt = last ? Math.min(32, now - last) : 16;
-    last = now;
-    time = now;
-
-    pointer.x += (pointer.tx - pointer.x) * 0.1;
-    pointer.y += (pointer.ty - pointer.y) * 0.1;
-    pointer.active += ((hovering ? 1 : 0) - pointer.active) * 0.06;
-
-    for (const w of wakes) w.life -= dt * 0.0022;
-    while (wakes.length && wakes[0].life <= 0) wakes.shift();
-
-    settle(time, false);
-    draw(time);
-    raf = requestAnimationFrame(tick);
+  function kick() {
+    if (!raf) raf = requestAnimationFrame(tick);
   }
 
   function onMove(event: PointerEvent) {
-    pointer.tx = event.clientX;
-    pointer.ty = event.clientY;
-    hovering = true;
-    pointer.active = 1;
-    const lastWake = wakes[wakes.length - 1];
-    if (
-      !lastWake ||
-      Math.hypot(event.clientX - lastWake.x, event.clientY - lastWake.y) > 42
-    ) {
-      wakes.push({ x: event.clientX, y: event.clientY, life: 0.7 });
-      if (wakes.length > 8) wakes.shift();
-    }
+    following = true;
+    tx = event.clientX;
+    ty = event.clientY;
+    kick();
   }
 
-  function onLeave() {
-    hovering = false;
+  function onResize() {
+    if (motion.matches || !following) {
+      const r = rest();
+      x = tx = r.x;
+      y = ty = r.y;
+      apply();
+    }
   }
 
   function stop() {
     cancelAnimationFrame(raf);
     raf = 0;
-    last = 0;
     window.removeEventListener("pointermove", onMove);
-    document.removeEventListener("mouseleave", onLeave);
-    window.removeEventListener("blur", onLeave);
-    window.removeEventListener("resize", resize);
+    window.removeEventListener("resize", onResize);
   }
 
   function start() {
-    if (!(canvas instanceof HTMLCanvasElement) || !root) {
+    if (!(root instanceof HTMLElement)) {
       stop();
       return;
     }
     stop();
-    resize();
-    window.addEventListener("resize", resize);
-    if (motion.matches) {
-      hovering = false;
-      pointer.active = 0;
-      wakes.length = 0;
-      settle(0, true);
-      draw(0);
-      return;
-    }
+    following = false;
+    const r = rest();
+    x = tx = r.x;
+    y = ty = r.y;
+    apply();
+    window.addEventListener("resize", onResize);
+    if (motion.matches) return;
     window.addEventListener("pointermove", onMove, { passive: true });
-    document.addEventListener("mouseleave", onLeave);
-    window.addEventListener("blur", onLeave);
-    raf = requestAnimationFrame(tick);
   }
 
   start();

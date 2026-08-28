@@ -293,7 +293,7 @@ main,
   color: var(--orza-cyan);
 }
 
-/* Sail wake — liquid lime / cyan / coral bands. Not page-rects. */
+/* Sail glow — one slow Orza cyan wash. Almost still. */
 
 .sail-wake {
   position: fixed;
@@ -301,12 +301,12 @@ main,
   z-index: 0;
   overflow: hidden;
   pointer-events: none;
-}
-
-.sail-wake canvas {
-  display: block;
-  width: 100%;
-  height: 100%;
+  background: radial-gradient(
+    circle 70vmax at var(--glow-x, 42%) var(--glow-y, 28%),
+    color-mix(in srgb, var(--orza-cyan) 11%, transparent) 0%,
+    color-mix(in srgb, var(--orza-cyan) 4.5%, transparent) 36%,
+    transparent 70%
+  );
 }
 
 /* Hero */
@@ -604,6 +604,7 @@ main,
   border-radius: 8px;
   color: #d2d2d4;
   font-weight: 400;
+  white-space: nowrap;
 }
 
 .side-row.is-pinned {
@@ -611,13 +612,12 @@ main,
   background: rgb(255 255 255 / 0.06);
 }
 
-.pin-nub {
-  width: 8px;
-  height: 8px;
+.pin-favicon {
+  width: 16px;
+  height: 16px;
   flex-shrink: 0;
-  background: var(--orza-coral);
-  border-radius: 50% 50% 50% 0;
-  transform: rotate(-45deg);
+  border-radius: 4px;
+  object-fit: cover;
 }
 
 .ntp {
