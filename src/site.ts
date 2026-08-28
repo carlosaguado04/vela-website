@@ -1,8 +1,8 @@
 export const site = {
   name: "Orza",
-  tagline: "A Mac browser for people who actually browse.",
-  title: "Orza — a Mac browser for people who actually browse",
-  description: "A Mac browser for people who actually browse.",
+  tagline: "A Mac browser. Free. Built with the people who use it.",
+  title: "Orza — a Mac browser. Free. Built with the people who use it.",
+  description: "A Mac browser. Free. Built with the people who use it.",
   url: "https://orza.acidity.lol",
   acidityUrl: "https://acidity.lol",
 } as const;

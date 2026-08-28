@@ -318,7 +318,7 @@ main,
 
 .hero-copy {
   text-align: center;
-  max-width: 40rem;
+  max-width: 42rem;
   margin-inline: auto;
 }
 
@@ -483,7 +483,7 @@ main,
 .traffic i:nth-child(1) {
   background: #ff6b61;
   box-shadow:
-    0 0 7px rgb(255 107 97 / 0.45),
+    0 0 4px rgb(255 107 97 / 0.28),
     inset 0 0.6px 0.6px rgb(255 255 255 / 0.5),
     inset 0 -0.6px 0.6px rgb(0 0 0 / 0.28);
 }
@@ -491,7 +491,7 @@ main,
 .traffic i:nth-child(2) {
   background: #d8ff47;
   box-shadow:
-    0 0 7px rgb(216 255 71 / 0.5),
+    0 0 4px rgb(216 255 71 / 0.28),
     inset 0 0.6px 0.6px rgb(255 255 255 / 0.55),
     inset 0 -0.6px 0.6px rgb(0 0 0 / 0.28);
 }
@@ -499,7 +499,7 @@ main,
 .traffic i:nth-child(3) {
   background: #33f2eb;
   box-shadow:
-    0 0 7px rgb(51 242 235 / 0.5),
+    0 0 4px rgb(51 242 235 / 0.28),
     inset 0 0.6px 0.6px rgb(255 255 255 / 0.55),
     inset 0 -0.6px 0.6px rgb(0 0 0 / 0.28);
 }
@@ -593,7 +593,6 @@ main,
   gap: 2px;
   margin-top: 6px;
   padding: 0 4px;
-  animation: beat-pins 24s var(--ease) infinite;
 }
 
 .side-row {
@@ -668,7 +667,7 @@ main,
   color: #6a6e76;
 }
 
-/* Glass tray — downloads beat only. Chrome motion, not a page rain. */
+/* Glass tray — sits in the mock. Slow fill, no land-and-vanish. */
 
 .dl-tray {
   position: absolute;
@@ -685,7 +684,6 @@ main,
     inset 0 1px 0 rgb(255 255 255 / 0.14);
   backdrop-filter: saturate(1.4) blur(22px);
   -webkit-backdrop-filter: saturate(1.4) blur(22px);
-  animation: beat-tray 24s var(--ease) infinite;
 }
 
 .dl {
@@ -693,7 +691,6 @@ main,
   align-items: center;
   gap: 10px;
   min-width: 0;
-  animation: dl-land 24s var(--ease) infinite;
 }
 
 .dl-file {
@@ -744,86 +741,29 @@ main,
   width: 100%;
   border-radius: inherit;
   background: var(--orza-cyan);
-  transform: scaleX(0);
+  transform: scaleX(0.62);
   transform-origin: left center;
-  animation: dl-fill 24s var(--ease) infinite;
-}
-
-/* 24s loop: home (match shot) → pins stay → tray lands. */
-
-@keyframes beat-pins {
-  0%,
-  34% {
-    opacity: 0;
-  }
-  40%,
-  90% {
-    opacity: 1;
-  }
-  96%,
-  100% {
-    opacity: 0;
-  }
-}
-
-@keyframes beat-tray {
-  0%,
-  56% {
-    opacity: 0;
-    transform: translateY(10px);
-    visibility: hidden;
-  }
-  62%,
-  90% {
-    opacity: 1;
-    transform: translateY(0);
-    visibility: visible;
-  }
-  96%,
-  100% {
-    opacity: 0;
-    transform: translateY(6px);
-    visibility: hidden;
-  }
-}
-
-@keyframes dl-land {
-  0%,
-  60% {
-    opacity: 0;
-    transform: translateY(-14px);
-  }
-  66%,
-  90% {
-    opacity: 1;
-    transform: translateY(0);
-  }
-  96%,
-  100% {
-    opacity: 0;
-    transform: translateY(0);
-  }
+  animation: dl-fill 48s var(--ease) infinite;
 }
 
 @keyframes dl-fill {
   0%,
-  60% {
-    transform: scaleX(0);
+  12% {
+    transform: scaleX(0.18);
   }
   72%,
-  90% {
-    transform: scaleX(1);
+  88% {
+    transform: scaleX(0.92);
   }
-  96%,
   100% {
-    transform: scaleX(0);
+    transform: scaleX(0.18);
   }
 }
 
 @media (max-width: 640px) {
   .hero h1 {
     font-size: 24px;
-    max-width: 11.5em;
+    max-width: 14em;
     margin-inline: auto;
   }
 }
@@ -847,24 +787,20 @@ main,
   min-width: 0;
 }
 
-.beat-cmd {
+.beat-free {
   border-top-color: var(--orza-cyan);
 }
 
-.beat-pins {
+.beat-ask {
   border-top-color: var(--orza-coral);
 }
 
-.beat-downloads {
+.beat-vote {
   border-top-color: var(--orza-lime);
 }
 
-.beat-split {
+.beat-build {
   border-top-color: var(--orza-cyan);
-}
-
-.beat-mini {
-  border-top-color: var(--orza-coral);
 }
 
 .beat h2 {
@@ -895,15 +831,7 @@ main,
 
 @media (min-width: 1024px) {
   .beats-grid {
-    grid-template-columns: repeat(6, 1fr);
-  }
-
-  .beat:nth-child(-n + 3) {
-    grid-column: span 2;
-  }
-
-  .beat:nth-child(n + 4) {
-    grid-column: span 3;
+    grid-template-columns: repeat(4, 1fr);
   }
 }
 
@@ -995,21 +923,8 @@ main,
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .side-pins,
-  .dl-tray,
-  .dl,
   .dl-bar i {
     animation: none !important;
-  }
-
-  .side-pins,
-  .dl-tray,
-  .dl {
-    opacity: 0;
-    visibility: hidden;
-  }
-
-  .dl-bar i {
-    transform: scaleX(0);
+    transform: scaleX(0.62);
   }
 }
