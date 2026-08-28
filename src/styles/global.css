@@ -34,24 +34,16 @@
 
 :root {
   --ink: #0c0d10;
-  --ink-raised: #16181d;
-  --ink-edge: #23262c;
+  --ink-raised: #12141a;
+  --ink-edge: rgb(255 255 255 / 0.08);
   --paper: #f4f4f2;
-  --paper-dim: #9aa0aa;
-  --paper-mute: #7c828c;
+  --paper-dim: #8b9098;
+  --paper-mute: #5e636c;
   --orza-coral: #ff6b61;
   --orza-lime: #d8ff47;
   --orza-cyan: #33f2eb;
-  --orza-tint: var(--orza-coral);
   --on-tint: #0c0d10;
-  --chrome: #12141a;
-  --chrome-raised: #1a1d24;
-  --chrome-edge: #2a2e36;
-  --shadow: 0 28px 80px rgb(0 0 0 / 0.5);
-
-  --r-sm: 8px;
-  --r-md: 14px;
-  --r-lg: 22px;
+  --shadow: 0 40px 110px rgb(0 0 0 / 0.55);
 
   --page: 1120px;
   --ease: cubic-bezier(0.2, 0.7, 0.2, 1);
@@ -59,22 +51,9 @@
   --font: "Satoshi", -apple-system, "Helvetica Neue", sans-serif;
   --font-brand: "Anurati", var(--font);
 
-  --nav-h: 64px;
+  --nav-h: 56px;
 
   color-scheme: dark;
-}
-
-@media (prefers-color-scheme: light) {
-  :root {
-    --ink: #f4f4f2;
-    --ink-raised: #ffffff;
-    --ink-edge: #e3e4e7;
-    --paper: #14161a;
-    --paper-dim: #5b6069;
-    --paper-mute: #5b6069;
-    --shadow: 0 24px 60px rgb(20 22 26 / 0.12);
-    color-scheme: light;
-  }
 }
 
 *,
@@ -89,6 +68,7 @@ html {
   -webkit-text-size-adjust: 100%;
   text-size-adjust: 100%;
   font-synthesis: none;
+  overflow-x: hidden;
 }
 
 body {
@@ -98,22 +78,11 @@ body {
   min-height: 100dvh;
   overflow-x: hidden;
   font-family: var(--font);
-  font-size: 17px;
+  font-size: 16px;
   font-weight: 400;
-  line-height: 1.55;
+  line-height: 1.5;
   color: var(--paper-dim);
-  background:
-    radial-gradient(
-      ellipse 80% 55% at 12% -10%,
-      color-mix(in srgb, var(--orza-coral) 11%, transparent),
-      transparent 52%
-    ),
-    radial-gradient(
-      ellipse 70% 50% at 92% 8%,
-      color-mix(in srgb, var(--orza-cyan) 10%, transparent),
-      transparent 55%
-    ),
-    var(--ink);
+  background: var(--ink);
   text-wrap: pretty;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
@@ -130,8 +99,8 @@ h2,
 h3 {
   color: var(--paper);
   text-wrap: balance;
-  font-weight: 700;
-  letter-spacing: -0.02em;
+  font-weight: 500;
+  letter-spacing: -0.03em;
   margin: 0;
 }
 
@@ -159,8 +128,8 @@ a:hover {
 }
 
 ::selection {
-  background: var(--orza-coral);
-  color: var(--on-tint);
+  background: color-mix(in srgb, var(--orza-cyan) 32%, transparent);
+  color: var(--paper);
 }
 
 .skip {
@@ -172,7 +141,7 @@ a:hover {
   background: var(--ink-raised);
   color: var(--paper);
   border: 1px solid var(--ink-edge);
-  border-radius: var(--r-sm);
+  border-radius: 8px;
   transform: translateY(-160%);
   transition: transform 150ms var(--ease);
 }
@@ -190,7 +159,7 @@ a:hover {
 
 @media (min-width: 768px) {
   .wrap {
-    width: min(var(--page), calc(100% - 80px));
+    width: min(var(--page), calc(100% - 96px));
   }
 }
 
@@ -200,7 +169,7 @@ main,
   z-index: 1;
 }
 
-/* Nav — Satoshi wordmark. Sparse: What’s in it, Studio. Sticky, one row, above the field. */
+/* Nav — thin, quiet, Satoshi wordmark. What’s in it, Studio. */
 
 .nav {
   position: sticky;
@@ -210,29 +179,29 @@ main,
   width: 100%;
   max-width: 100%;
   height: var(--nav-h);
-  overflow: hidden;
-  background: color-mix(in srgb, var(--ink) 94%, transparent);
-  backdrop-filter: saturate(1.2) blur(18px);
-  -webkit-backdrop-filter: saturate(1.2) blur(18px);
-  border-bottom: 1px solid var(--ink-edge);
+  background: color-mix(in srgb, var(--ink) 78%, transparent);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
 }
 
 .nav-bar {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 16px;
+  gap: 12px;
   width: 100%;
-  max-width: 100%;
+  max-width: 1280px;
   height: var(--nav-h);
-  padding-inline: 24px;
+  margin-inline: auto;
+  padding-inline: 16px;
   box-sizing: border-box;
   flex-wrap: nowrap;
 }
 
 @media (min-width: 768px) {
   .nav-bar {
-    padding-inline: 40px;
+    padding-inline: 32px;
+    gap: 16px;
   }
 }
 
@@ -243,8 +212,8 @@ main,
   color: var(--paper);
   text-decoration: none;
   font-family: var(--font);
-  font-size: 15px;
-  font-weight: 700;
+  font-size: 14px;
+  font-weight: 500;
   letter-spacing: -0.01em;
   flex-shrink: 0;
   white-space: nowrap;
@@ -255,13 +224,13 @@ main,
 }
 
 .brand-mark {
-  width: 24px;
-  height: 24px;
+  width: 20px;
+  height: 20px;
   flex-shrink: 0;
 }
 
 .brand-ring {
-  stroke: color-mix(in srgb, var(--paper) 38%, transparent);
+  stroke: color-mix(in srgb, var(--paper) 34%, transparent);
 }
 
 .brand-arc {
@@ -275,18 +244,35 @@ main,
 .nav-links {
   display: flex;
   align-items: center;
-  gap: 24px;
+  gap: 16px;
   flex: 0 0 auto;
   margin-left: auto;
   flex-wrap: nowrap;
 }
 
+@media (min-width: 768px) {
+  .nav-links {
+    gap: 28px;
+  }
+}
+
 .nav-links a {
-  color: var(--paper);
+  color: var(--paper-mute);
   text-decoration: none;
-  font-size: 15px;
-  font-weight: 500;
+  font-size: 13px;
+  font-weight: 400;
   white-space: nowrap;
+}
+
+@media (min-width: 768px) {
+  .nav-links a {
+    font-size: 14px;
+  }
+}
+
+.nav-links a:hover,
+.nav-links a[aria-current="page"] {
+  color: var(--paper);
 }
 
 .nav-links a:hover {
@@ -309,58 +295,69 @@ main,
   );
 }
 
-/* Hero */
+/* Hero — the chrome mock is the product. Air around it. */
 
 .hero {
-  padding-top: 40px;
-  padding-bottom: 48px;
+  padding-top: 48px;
+  padding-bottom: 0;
 }
 
 .hero-copy {
-  text-align: center;
-  max-width: 42rem;
+  width: min(38rem, calc(100% - 48px));
   margin-inline: auto;
+  text-align: center;
 }
 
 .hero h1 {
-  font-size: clamp(26px, 4.2vw, 44px);
-  letter-spacing: -0.03em;
+  font-size: clamp(28px, 4.2vw, 44px);
+  font-weight: 500;
+  letter-spacing: -0.038em;
   line-height: 1.12;
 }
 
 .hero-stage {
-  margin-top: 32px;
+  width: min(1280px, calc(100% - 32px));
+  margin-inline: auto;
+  margin-top: 48px;
   min-width: 0;
   container-type: inline-size;
   display: flex;
   justify-content: center;
 }
 
-/* Desktop-pixel chrome, scaled as a unit. Height collapses with the scale. */
 .chrome-stage {
-  --chrome-w: 960px;
-  --chrome-h: 560px;
+  --chrome-w: 1200px;
+  --chrome-h: 680px;
   --chrome-scale: min(1, 100cqi / var(--chrome-w));
+  width: calc(var(--chrome-w) * var(--chrome-scale));
+  height: calc(var(--chrome-h) * var(--chrome-scale));
+  position: relative;
+  flex-shrink: 0;
+}
+
+.chrome-stage .chrome {
+  position: absolute;
+  top: 0;
+  left: 0;
   width: var(--chrome-w);
   height: var(--chrome-h);
-  flex-shrink: 0;
+  max-width: none;
   transform: scale(var(--chrome-scale));
-  transform-origin: top center;
-  margin-bottom: calc(var(--chrome-h) * (var(--chrome-scale) - 1));
+  transform-origin: top left;
 }
 
 @media (min-width: 768px) {
   .hero {
-    padding-top: 48px;
-    padding-bottom: 64px;
+    padding-top: 72px;
   }
 
   .hero-stage {
-    margin-top: 40px;
+    width: min(1280px, calc(100% - 80px));
+    margin-top: 64px;
   }
 }
 
-/* Orza window — always dark. No title bar. Lights live on the floating glass. */
+/* Orza window — always dark. Coral / lime / cyan live here only. */
 
 .chrome {
   position: relative;
@@ -646,7 +643,7 @@ main,
 
 .ntp-title {
   margin-top: 14px;
-  font-size: clamp(22px, 2.6vw, 30px);
+  font-size: 32px;
   font-weight: 500;
   letter-spacing: -0.025em;
   color: #ffffff;
@@ -666,8 +663,6 @@ main,
   font-weight: 400;
   color: #6a6e76;
 }
-
-/* Glass tray — sits in the mock. Slow fill, no land-and-vanish. */
 
 .dl-tray {
   position: absolute;
@@ -766,69 +761,74 @@ main,
     max-width: 14em;
     margin-inline: auto;
   }
+
+  .hero-stage {
+    margin-top: 36px;
+  }
+
+  .beats-copy p {
+    font-size: 16px;
+  }
 }
 
-/* Beats */
+/* Beats — type, not boxes. */
 
 .beats {
-  padding-top: 88px;
-  padding-bottom: 24px;
+  padding-top: 96px;
+  padding-bottom: 8px;
 }
 
-.beats-grid {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 28px;
-}
-
-.beat {
-  padding-top: 14px;
-  border-top: 1px solid var(--ink-edge);
+.beats-copy {
+  width: 100%;
+  max-width: 36rem;
   min-width: 0;
+  margin-inline: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  text-align: left;
 }
 
-.beat h2 {
-  font-size: 22px;
-  font-weight: 700;
-  letter-spacing: -0.02em;
-  color: var(--paper);
-}
-
-.beat p {
-  margin-top: 10px;
-  max-width: 28ch;
+.beats-copy p {
+  margin: 0;
+  max-width: 100%;
   font-size: 17px;
   line-height: 1.45;
   color: var(--paper-dim);
+  overflow-wrap: break-word;
+}
+
+.beats-copy strong {
+  font-weight: 500;
+  color: var(--paper);
 }
 
 @media (min-width: 768px) {
   .beats {
-    padding-top: 112px;
+    padding-top: 128px;
   }
 
-  .beats-grid {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 32px;
+  .beats-copy {
+    gap: 20px;
+    text-align: center;
   }
-}
 
-@media (min-width: 1024px) {
-  .beats-grid {
-    grid-template-columns: repeat(4, 1fr);
+  .beats-copy p {
+    font-size: 18px;
   }
 }
 
 /* Closer — no CTA */
 
 .closer {
-  padding: 120px 0 96px;
+  padding: 104px 0 120px;
   text-align: center;
 }
 
 .closer h2 {
   font-size: clamp(28px, 4vw, 40px);
-  letter-spacing: -0.03em;
+  font-weight: 500;
+  letter-spacing: -0.035em;
 }
 
 .closer p {
@@ -838,107 +838,73 @@ main,
 }
 
 .missing {
-  padding: 96px 0 120px;
+  padding: 120px 0 160px;
 }
 
 .missing h1 {
   font-size: clamp(28px, 4vw, 40px);
+  font-weight: 500;
 }
 
 .missing p {
   margin-top: 12px;
 }
 
-/* Inventory — numbered tilt cards. CSS vars + pointermove. */
-
-@property --rx {
-  syntax: "<angle>";
-  inherits: false;
-  initial-value: 0deg;
-}
-
-@property --ry {
-  syntax: "<angle>";
-  inherits: false;
-  initial-value: 0deg;
-}
-
-@property --lift {
-  syntax: "<length>";
-  inherits: false;
-  initial-value: 0px;
-}
+/* Inventory — quiet numbered index. No cards, no essays. */
 
 .inventory {
-  padding: 96px 0 120px;
+  width: min(36rem, calc(100% - 48px));
+  padding: 72px 0 128px;
 }
 
 .inventory-head h1 {
-  font-size: clamp(28px, 4vw, 40px);
-  letter-spacing: -0.03em;
+  font-size: clamp(32px, 5vw, 48px);
+  font-weight: 500;
+  letter-spacing: -0.04em;
+  line-height: 1.1;
 }
 
 .inventory-head p {
   margin-top: 14px;
-  font-size: 17px;
-  line-height: 1.5;
+  font-size: 16px;
+  line-height: 1.45;
   color: var(--paper-dim);
 }
 
-.inventory-grid {
+.index {
+  list-style: none;
+  margin: 64px 0 0;
+  padding: 0;
+  border-top: 1px solid var(--ink-edge);
+}
+
+.index li {
+  margin: 0;
+  padding: 0;
+  border-bottom: 1px solid var(--ink-edge);
+}
+
+.index-row,
+.index a {
   display: grid;
-  grid-template-columns: 1fr;
-  gap: 14px;
-  margin-top: 48px;
-  min-width: 0;
-  perspective: 800px;
+  grid-template-columns: 2.75rem minmax(0, 1fr);
+  column-gap: 12px;
+  align-items: center;
+  min-height: 56px;
+  padding: 16px 0;
+  color: inherit;
+  text-decoration: none;
 }
 
-.feature {
-  --rx: 0deg;
-  --ry: 0deg;
-  --lift: 0px;
-  min-width: 0;
-  min-height: 148px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  gap: 16px;
-  padding: 22px 22px 24px;
-  border-radius: var(--r-md);
-  background:
-    linear-gradient(
-      165deg,
-      rgb(255 255 255 / 0.1) 0%,
-      rgb(255 255 255 / 0.03) 40%,
-      transparent 100%
-    ),
-    color-mix(in srgb, var(--ink-raised) 48%, transparent);
-  border: 1px solid rgb(255 255 255 / 0.12);
-  box-shadow:
-    0 10px 28px rgb(0 0 0 / 0.16),
-    inset 0 1px 0 rgb(255 255 255 / 0.14);
-  backdrop-filter: saturate(1.35) blur(22px);
-  -webkit-backdrop-filter: saturate(1.35) blur(22px);
-  transform: perspective(800px) rotateX(var(--rx)) rotateY(var(--ry))
-    translateY(var(--lift));
-  transform-style: preserve-3d;
-  transition:
-    --rx 350ms var(--ease),
-    --ry 350ms var(--ease),
-    --lift 350ms var(--ease),
-    border-color 180ms ease;
-  will-change: transform;
+.index a:hover {
+  color: inherit;
 }
 
-.feature-top {
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  gap: 12px;
+.index a:hover .index-t {
+  color: var(--orza-cyan);
 }
 
-.feature-index {
+.index-n {
   font-size: 13px;
   font-weight: 500;
   letter-spacing: 0.06em;
@@ -946,84 +912,50 @@ main,
   color: var(--paper-mute);
 }
 
-.feature-icon {
-  width: 36px;
-  height: 36px;
-  border-radius: var(--r-sm);
+.index-t {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+  font-size: 18px;
+  font-weight: 500;
+  letter-spacing: -0.022em;
+  color: var(--paper);
+}
+
+.index-icon {
+  width: 18px;
+  height: 18px;
+  border-radius: 4px;
   flex-shrink: 0;
   object-fit: cover;
 }
 
-.feature h2 {
-  font-size: 22px;
-  font-weight: 700;
-  letter-spacing: -0.02em;
-  color: var(--paper);
-}
-
-a.feature {
-  color: inherit;
-  text-decoration: none;
-}
-
-a.feature:hover {
-  color: inherit;
-}
-
-a.feature:hover h2 {
-  color: var(--orza-cyan);
-}
-
 @media (min-width: 768px) {
-  .inventory-grid {
-    grid-template-columns: repeat(2, 1fr);
-    margin-top: 56px;
-    gap: 16px;
-  }
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .feature:hover {
-    border-color: color-mix(in srgb, var(--orza-cyan) 32%, rgb(255 255 255 / 0.12));
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .feature {
-    transform: none;
-    transition: border-color 180ms ease;
-    will-change: auto;
-  }
-}
-
-@media (prefers-color-scheme: light) {
-  .feature {
-    background:
-      linear-gradient(
-        165deg,
-        rgb(255 255 255 / 0.78) 0%,
-        rgb(255 255 255 / 0.42) 100%
-      ),
-      color-mix(in srgb, var(--ink-raised) 55%, transparent);
-    border: 1px solid rgb(20 22 26 / 0.08);
-    box-shadow:
-      0 10px 28px rgb(20 22 26 / 0.06),
-      inset 0 1px 0 rgb(255 255 255 / 0.86);
+  .inventory {
+    width: min(36rem, calc(100% - 96px));
+    padding-top: 96px;
+    padding-bottom: 160px;
   }
 
-  @media (prefers-reduced-motion: no-preference) {
-    .feature:hover {
-      border-color: color-mix(in srgb, var(--orza-cyan) 40%, rgb(20 22 26 / 0.08));
-    }
+  .index {
+    margin-top: 80px;
+  }
+
+  .index-row,
+  .index a {
+    min-height: 64px;
+  }
+
+  .index-t {
+    font-size: 20px;
   }
 }
 
 /* Footer — Anurati on Acidity only. nowrap. Same lock as usemise.dev. */
 
 .footer {
-  padding: 32px 0 48px;
-  border-top: 1px solid var(--ink-edge);
-  background: color-mix(in srgb, var(--ink) 78%, transparent);
+  padding: 0 0 48px;
   font-family: var(--font);
   font-size: 13px;
   font-weight: 400;
