@@ -3,65 +3,23 @@ import Base from "../layouts/Base.astro";
 import { site } from "../site";
 
 const title = "What’s in it";
-const lead =
-  "Free. Runs on Apple Silicon Macs, macOS 26 or later, with Safari’s engine.";
+const lead = "Apple Silicon, macOS 26+, free.";
 
 const features = [
+  { n: "01", title: "Pins" },
+  { n: "02", title: "Split View" },
+  { n: "03", title: "Mini-player" },
+  { n: "04", title: "Spaces" },
+  { n: "05", title: "Idle tabs" },
+  { n: "06", title: "Reader" },
+  { n: "07", title: "Ads & trackers" },
+  { n: "08", title: "Phishing & malware" },
+  { n: "09", title: "HTTPS-only" },
   {
-    title: "Address bar",
-    body: "Press ⌘L when you want to go somewhere. It is not parked in the chrome.",
-  },
-  {
-    title: "Pins",
-    body: "Save up to 12 sites. Close a pin and it comes back to that address, not the last tab you left.",
-  },
-  {
-    title: "Split View",
-    body: "Two pages in one window. You pick the second page.",
-  },
-  {
-    title: "Downloads",
-    body: "Orza asks where to save. It does not write files in the background.",
-  },
-  {
-    title: "Mini-player",
-    body: "Control a video from another tab. Leave the page and it can go Picture-in-Picture.",
-  },
-  {
-    title: "Spaces",
-    body: "Separate cookies and logins, like profiles.",
-  },
-  {
-    title: "Idle tabs",
-    body: "Unused tabs unload to free memory. Coming back shows a snapshot, not a blank page.",
-  },
-  {
-    title: "Reader",
-    body: "Strip a page down to the article.",
-  },
-  {
-    title: "Ads and trackers",
-    body: "Blocked with macOS content rules, not an extension.",
-  },
-  {
-    title: "Phishing and malware",
-    body: "Warns if a site is on the OpenPhish or URLhaus lists.",
-  },
-  {
-    title: "HTTPS-only",
-    body: "HTTP is upgraded to HTTPS when it can.",
-  },
-  {
-    title: "Permissions",
-    body: "Location, notifications, downloads, and autoplay are asked per site.",
-  },
-  {
-    title: "Keyboard",
-    body: "Navigation has shortcuts, including Touch Bar on Macs that have one.",
-  },
-  {
+    n: "10",
     title: "Mise",
-    body: "Mise can open an Orza window to a page, or a split with two pages, already in the slot you saved.",
+    href: "https://usemise.dev",
+    icon: "/favicons/mise.png",
   },
 ] as const;
 ---
@@ -75,13 +33,77 @@ const features = [
 
     <div class="inventory-grid">
       {
-        features.map((feature) => (
-          <section class="feature">
-            <h2>{feature.title}</h2>
-            <p>{feature.body}</p>
-          </section>
-        ))
+        features.map((feature) => {
+          const inner = (
+            <>
+              <div class="feature-top">
+                <span class="feature-index" aria-hidden="true">
+                  {feature.n}
+                </span>
+                {"icon" in feature && (
+                  <img
+                    class="feature-icon"
+                    src={feature.icon}
+                    width="36"
+                    height="36"
+                    alt=""
+                    decoding="async"
+                  />
+                )}
+              </div>
+              <h2>{feature.title}</h2>
+            </>
+          );
+
+          return "href" in feature ? (
+            <a
+              class="feature feature-mise"
+              data-tilt
+              href={feature.href}
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              {inner}
+            </a>
+          ) : (
+            <article class="feature" data-tilt>
+              {inner}
+            </article>
+          );
+        })
       }
     </div>
   </article>
+
+  <script>
+    const motion = window.matchMedia("(prefers-reduced-motion: reduce)");
+
+    function reset(card: HTMLElement) {
+      card.style.setProperty("--rx", "0deg");
+      card.style.setProperty("--ry", "0deg");
+      card.style.setProperty("--lift", "0px");
+    }
+
+    function bind(card: HTMLElement) {
+      const onMove = (event: PointerEvent) => {
+        if (motion.matches) return;
+        const rect = card.getBoundingClientRect();
+        if (!rect.width || !rect.height) return;
+        const px = (event.clientX - rect.left) / rect.width - 0.5;
+        const py = (event.clientY - rect.top) / rect.height - 0.5;
+        card.style.setProperty("--ry", `${px * 8}deg`);
+        card.style.setProperty("--rx", `${-py * 6}deg`);
+        card.style.setProperty("--lift", "-4px");
+      };
+
+      card.addEventListener("pointermove", onMove);
+      card.addEventListener("pointerleave", () => reset(card));
+    }
+
+    document.querySelectorAll<HTMLElement>("[data-tilt]").forEach(bind);
+    motion.addEventListener("change", () => {
+      if (!motion.matches) return;
+      document.querySelectorAll<HTMLElement>("[data-tilt]").forEach(reset);
+    });
+  </script>
 </Base>

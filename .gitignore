@@ -5,4 +5,6 @@ dist/
 
 .run-grok-vela-site.sh
 .run-grok-orza.sh
+.run-grok*.sh
+.hero-scale-grok.md
 reference-vela-window.png
