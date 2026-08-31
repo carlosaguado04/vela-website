@@ -18,8 +18,8 @@ export const features = [
   },
   {
     n: "02",
-    title: "Split View",
-    tip: "Two pages in one window.",
+    title: "Split",
+    tip: "Cmd+[ and Cmd+] stay on the pane you’re in. Option-Cmd arrows jump the other one.",
   },
   {
     n: "03",
@@ -58,8 +58,43 @@ export const features = [
   },
   {
     n: "10",
+    title: "Shortcuts",
+    tip: "Click a row, press the new chord. Defaults until you change one. Reset this one, or all of them.",
+  },
+  {
+    n: "11",
+    title: "Tabs",
+    tip: "Page links open behind you. New tabs land next to the current one. Close goes to the neighbor, or last used if you turn that on.",
+  },
+  {
+    n: "12",
+    title: "Switcher",
+    tip: "Ctrl+Tab walks open tabs in this Space, with previews.",
+  },
+  {
+    n: "13",
+    title: "Numbers",
+    tip: "Cmd+1–9 follow the order you opened them. A closed pin doesn’t steal a number.",
+  },
+  {
+    n: "14",
+    title: "Command bar",
+    tip: "Cmd+K is the same glass as Cmd+L. Still a palette.",
+  },
+  {
+    n: "15",
+    title: "Shortcut HUD",
+    tip: "Optional. Chords only, off until you turn it on.",
+  },
+  {
+    n: "16",
+    title: "Background tab",
+    tip: "Open Link in Background Tab sits at the top of the link menu.",
+  },
+  {
+    n: "17",
     title: "Mise",
-    tip: "Opens an Orza window to a page, or a split with two pages, in the slot you saved.",
+    tip: "Mise Pro restores this Space — tabs, split, sidebar — into the slot you saved. Closed pins stay pins.",
     href: site.miseUrl,
     icon: "/favicons/mise.png",
   },
