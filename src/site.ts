@@ -63,36 +63,16 @@ export const features = [
   },
   {
     n: "11",
-    title: "Tabs",
-    tip: "Page links open behind you. New tabs land next to the current one. Close goes to the neighbor, or last used if you turn that on.",
-  },
-  {
-    n: "12",
     title: "Switcher",
     tip: "Ctrl+Tab walks open tabs in this Space, with previews.",
   },
   {
-    n: "13",
-    title: "Numbers",
-    tip: "Cmd+1–9 follow the order you opened them. A closed pin doesn’t steal a number.",
-  },
-  {
-    n: "14",
+    n: "12",
     title: "Command bar",
     tip: "Cmd+K is the same glass as Cmd+L. Still a palette.",
   },
   {
-    n: "15",
-    title: "Shortcut HUD",
-    tip: "Optional. Chords only, off until you turn it on.",
-  },
-  {
-    n: "16",
-    title: "Background tab",
-    tip: "Open Link in Background Tab sits at the top of the link menu.",
-  },
-  {
-    n: "17",
+    n: "13",
     title: "Mise",
     tip: "Mise Pro restores this Space — tabs, split, sidebar — into the slot you saved. Closed pins stay pins.",
     href: site.miseUrl,
