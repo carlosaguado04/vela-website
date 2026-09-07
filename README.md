@@ -1,8 +1,10 @@
 # Orza
 
-Marketing site for [Orza](https://orza.acidity.lol), a Mac browser from [Acidity](https://acidity.lol). Sidebar, pins, downloads. Still cooking.
+Marketing site for [Orza](https://orza.acidity.lol), a Mac browser from [Acidity](https://acidity.lol).
 
-Static Astro. One page. CSS motion — no video, no Lottie.
+The live site is on hold: coming soon + the Acidity wordmark on the existing glow. The full product page is frozen on `archive/full-site` (tag `archive/orza-site-v1`).
+
+Static Astro. CSS motion — no video, no Lottie.
 
 ## Develop
 

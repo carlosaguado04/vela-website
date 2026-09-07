@@ -1475,3 +1475,52 @@ html[data-theme="light"] .sail-wake {
     transform: scaleX(0.62);
   }
 }
+
+/* Hold — coming soon. Same glow, nothing else. */
+
+.hold-body {
+  overflow: hidden;
+}
+
+.hold-body main {
+  padding-top: 0;
+  min-height: 100dvh;
+}
+
+.hold {
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 48px 24px;
+}
+
+.hold h1 {
+  display: flex;
+  flex-direction: column;
+  font-size: clamp(64px, 16vw, 200px);
+  font-weight: 500;
+  letter-spacing: -0.055em;
+  line-height: 0.86;
+  color: var(--paper);
+}
+
+.hold-acidity {
+  margin-top: clamp(28px, 5vw, 56px);
+  font-family: var(--font-brand);
+  font-size: clamp(14px, 1.8vw, 20px);
+  font-weight: 400;
+  font-style: normal;
+  letter-spacing: 0.28em;
+  line-height: 1;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: var(--paper);
+  white-space: nowrap;
+}
+
+.hold-acidity:hover {
+  color: var(--orza-cyan);
+}

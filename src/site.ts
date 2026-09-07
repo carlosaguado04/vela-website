@@ -1,8 +1,8 @@
 export const site = {
   name: "Orza",
-  tagline: "A Mac browser. Free. Built with the people who use it.",
-  title: "Orza — a Mac browser. Free. Built with the people who use it.",
-  description: "A Mac browser. Free. Built with the people who use it.",
+  tagline: "Coming soon.",
+  title: "Coming soon — Orza",
+  description: "Coming soon.",
   url: "https://orza.acidity.lol",
   email: "hello@useorza.dev",
   acidityUrl: "https://acidity.lol",

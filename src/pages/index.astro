@@ -1,38 +1,8 @@
 ---
-import Base from "../layouts/Base.astro";
-import Chrome from "../components/Chrome.astro";
-import FeaturesPanel from "../components/FeaturesPanel.astro";
-import { jsonLd } from "../site";
+import Hold from "../layouts/Hold.astro";
+import ComingSoon from "../components/ComingSoon.astro";
 ---
 
-<Base jsonLd={jsonLd}>
-  <section class="hero">
-    <div class="hero-copy">
-      <h1>A Mac browser. Free. Built with the people who use it.</h1>
-    </div>
-    <div class="hero-stage">
-      <div class="chrome-stage">
-        <Chrome />
-      </div>
-    </div>
-  </section>
-
-  <section class="beats" aria-label="How it gets built">
-    <div class="wrap">
-      <div class="beats-copy">
-        <p><strong>Free</strong> — You get a browser, not a waitlist.</p>
-        <p><strong>Ask</strong> — Donate to put a feature on the list.</p>
-        <p><strong>Vote</strong> — Once a month, users pick what we build next.</p>
-        <p><strong>Build</strong> — We make that one with the person who asked.</p>
-      </div>
-    </div>
-  </section>
-
-  <FeaturesPanel />
-
-  <section class="closer" id="status" aria-label="Status">
-    <div class="wrap">
-      <h2>Still cooking.</h2>
-    </div>
-  </section>
-</Base>
+<Hold>
+  <ComingSoon />
+</Hold>
