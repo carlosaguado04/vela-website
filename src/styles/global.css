@@ -1524,3 +1524,8 @@ html[data-theme="light"] .sail-wake {
 .hold-acidity:hover {
   color: var(--orza-cyan);
 }
+
+.subtitle {
+  margin-top: 50px;
+  font-size: clamp(50px, 8vw, 100px);
+}
